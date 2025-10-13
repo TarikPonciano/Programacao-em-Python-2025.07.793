@@ -63,6 +63,20 @@ CONSTRAINT fk_aluguel_livro FOREIGN KEY (livro_id) REFERENCES livros(id_livro)
 INSERT INTO autores
 VALUES (default, 'J.R Tolkien'), (default, 'George Martin'), (default, 'Machado de Assis');
 ''')
+    cursor.execute('''
+INSERT INTO livros
+VALUES (default, 'Senhor dos Anéis', 1940, 1), (default, 'Game of Thrones', 1990, 2), (default, 'Memórias Póstumas de Bras Cubas', 1890, 3), (default, 'O Hobbit', 1935, 1), (default, 'O Cortiço', 1895, 3);
+''')
+    
+    cursor.execute('''
+INSERT INTO membros 
+VALUES (default, 'Joaquim', 'joaquim@email.com'), (default, 'Janaina', 'janaina@email.com');
+''')
+    
+    cursor.execute('''
+    INSERT INTO alugueis (membro_id,livro_id)
+    VALUES (1,1), (2,5);
+''')
     con.commit()
 
     cursor.close()
