@@ -14,7 +14,19 @@ try:
     con = psycopg2.connect(dbname=DB_NAME, host=DB_HOST, password=DB_PASSWORD, port=DB_PORT, user=DB_USER)
     cursor = con.cursor()
 
-    #SQL AQUI
+    # cursor.execute("SELECT VERSION();")
+    # resultado = cursor.fetchall()
+    # print(resultado)
+    cursor.execute("DROP TABLE IF EXISTS autores;")
+    con.commit()
+
+    cursor.execute('''
+CREATE TABLE IF NOT EXISTS autores(
+id_autor integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+nome_autor varchar(255) NOT NULL
+                   );
+''')
+    con.commit()
 
     cursor.close()
     con.close()
