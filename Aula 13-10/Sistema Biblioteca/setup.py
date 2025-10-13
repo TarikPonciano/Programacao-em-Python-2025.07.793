@@ -17,6 +17,7 @@ try:
     # cursor.execute("SELECT VERSION();")
     # resultado = cursor.fetchall()
     # print(resultado)
+    cursor.execute("DROP TABLE IF EXISTS livros;")
     cursor.execute("DROP TABLE IF EXISTS autores;")
     con.commit()
 
@@ -25,6 +26,15 @@ CREATE TABLE IF NOT EXISTS autores(
 id_autor integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
 nome_autor varchar(255) NOT NULL
                    );
+''')
+    cursor.execute('''
+CREATE TABLE IF NOT EXISTS livros(
+id_livro integer GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+titulo_livro varchar(255) NOT NULL,
+ano_livro integer NOT NULL,
+autor_id integer NOT NULL,
+CONSTRAINT fk_livro_autor FOREIGN KEY (autor_id) REFERENCES autores(id_autor)
+)
 ''')
     con.commit()
 
