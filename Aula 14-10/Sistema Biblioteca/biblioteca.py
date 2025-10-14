@@ -1,6 +1,12 @@
 import psycopg2
 import dotenv
 import os
+import conexaoDB
+
+# Implementar o Ver Clientes e Cadastrar Cliente
+# 1. Incluir as opções Ver Clientes e Cadastrar Cliente no menu
+# 2. Conectar ao banco, realizar consulta e exibir clientes na tela (Ver Clientes)
+# 3. Coletar dados do novo cliente, conectar ao banco e realizar insert do cliente no banco (Cadastrar Cliente)
 
 def verLivros():
     livros = None
@@ -63,6 +69,49 @@ VALUES (default, %s, %s, %s)''', [tituloLivro, anoLivro, autorLivro])
     except Exception as e:
         print("ERRO NO CADASTRO DE LIVRO -",e)
 
+def verClientes():
+    clientes = None
+    try:
+        con = psycopg2.connect(dbname=DB_NAME, host=DB_HOST, password=DB_PASSWORD, port=DB_PORT, user=DB_USER)
+        cursor = con.cursor()
+
+        cursor.execute("SELECT * FROM membros ORDER BY id_membro ASC;")
+        clientes = cursor.fetchall() 
+
+        cursor.close()
+        con.close()
+    except Exception as e:
+        print("OCORREU UM ERRO NA CONSULTA -",e)
+
+    if clientes == None:
+        print("Não foi possível consultar a tabela de Clientes!")
+    else:
+        print("Lista de Clientes")
+        print("ID | Nome | Email")
+        for cliente in clientes:
+            print(f"{cliente[0]} | {cliente[1]} | {cliente[2]}")
+
+def cadastrarCliente():
+    print("Cadastro de Cliente")
+
+    nomeCliente = input("Digite o nome do cliente:")
+    emailCliente = input("Digite o email do cliente:")
+
+    try:
+        con = psycopg2.connect(dbname=DB_NAME, host=DB_HOST, password=DB_PASSWORD, port=DB_PORT, user=DB_USER)
+
+        cursor = con.cursor()
+        
+        cursor.execute('''
+INSERT INTO membros 
+VALUES (default, %s, %s)''', [nomeCliente, emailCliente])
+        con.commit()
+        cursor.close()
+        con.close()
+        print("Cliente cadastrado com sucesso!")
+    except Exception as e:
+        print("ERRO NO CADASTRO DE CLIENTE -",e)
+
 
 dotenv.load_dotenv(dotenv.find_dotenv())
 
@@ -72,6 +121,7 @@ DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_PORT = os.getenv("DB_PORT")
 DB_HOST = os.getenv("DB_HOST")
 
+meuBanco = conexaoDB.ConexaoDB(DB_NAME,DB_HOST,DB_PORT,DB_USER,DB_PASSWORD)
 #Primeiro Objetivo: Menu com as opções "Ver Livros" e "Cadastrar Livros"
 
 while True:
@@ -83,6 +133,9 @@ Menu:
           
 1. Ver Livros
 2. Cadastrar Livro
+3. Ver Clientes
+4. Cadastrar Cliente
+5. Ver Autores
 0. Sair
 ''')
     op = input("Digite a opção desejada:")
@@ -91,6 +144,14 @@ Menu:
         verLivros()
     elif op == "2":
         cadastrarLivro()
+    elif op == "3":
+        verClientes()
+    elif op == "4":
+        cadastrarCliente()
+    elif op == "5":
+        autores = meuBanco.consultar("SELECT * FROM autores;", [])
+        print(autores)
+
     elif op == "0":
         print("Saindo da aplicação...")
         break
