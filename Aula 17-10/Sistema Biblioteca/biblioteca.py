@@ -12,7 +12,9 @@ def verLivros():
 
     #Operações com Banco de Dados
     #Conecta com o banco e obtém a lista de livros, guardando na variável livros
-    livros = meuBanco.consultar("SELECT * FROM livros ORDER BY id_livro;", [])
+    livros = meuBanco.consultar('''SELECT id_livro, titulo_livro, ano_livro, nome_autor FROM livros
+    INNER JOIN autores ON id_autor = autor_id
+    ORDER BY id_livro;''', [])
 
     # Verifica se foi possível obter a lista de livros. Caso não tenha sido imprime uma mensagem de erro. 
     # Caso os livros tenham sido obtidos é impresso a lista de livros na tela.
@@ -71,11 +73,42 @@ def cadastrarCliente():
 
 # Exibir a lista de alugueis com uma tabela contendo as seguintes informações (ID Aluguel, Nome Cliente, Título do Livro, Data do Aluguel, Data de Devolução)
 def verAlugueis():
-    pass
+    alugueis = meuBanco.consultar('''
+    SELECT id_aluguel, nome_membro, titulo_livro, data_aluguel, data_devolucao FROM alugueis
+    INNER JOIN membros ON id_membro = membro_id
+    INNER JOIN livros ON id_livro = livro_id
+    ORDER BY id_aluguel                
+    ;''', [])
+    
+    if alugueis == None:
+        print("Não foi possível obter a lista de alugueis.")
+    else:
+        print("ID | Cliente | Livro | Data do Aluguel | Data de Devolução")
+        for aluguel in alugueis:
+            print(f"{aluguel[0]} | {aluguel[1]} | {aluguel[2]} | {aluguel[3]} | {aluguel[4]}")
 
 # Pedir ao usuário o id do cliente(exibir clientes) e id do livro(exibir livros). Executar um insert na tabela aluguel. 
+# 1. Exibir lista de clientes
+# 2. Pedir ao usuário o id do cliente que alugou
+# 3. Exibir lista de livros
+# 4. Pedir ao usuário o id do livro alugado
+# 5. Executar SQL de inserção do novo aluguel
 def cadastrarAluguel():
-    pass
+    print("Cadastro de Aluguel")
+
+    #Exibir os clientes disponíveis
+    verClientes()
+
+    idCliente = int(input("Digite o id do cliente que está alugando um livro: "))
+
+    verLivros()
+
+    idLivro = int(input("Digite o id do livro que está sendo alugado:"))
+
+    meuBanco.manipular('''
+INSERT INTO alugueis (membro_id, livro_id)
+VALUES (%s, %s);
+''', [idCliente, idLivro])
 
 
 dotenv.load_dotenv(dotenv.find_dotenv())
