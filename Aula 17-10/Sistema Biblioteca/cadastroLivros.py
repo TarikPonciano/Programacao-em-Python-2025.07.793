@@ -3,6 +3,7 @@ import dotenv
 import os
 
 import customtkinter as ctk
+import tkinter
 from tkinter import ttk, messagebox
 
 dotenv.load_dotenv(dotenv.find_dotenv())
@@ -57,7 +58,8 @@ lista_autor_livro.grid(row=3, column=1, sticky="ew", padx=5, pady=5)
 lista_autor_livro.configure(values=["Tolkien", "Machado de Assis", "George R. Martin"])
 lista_autor_livro.set('Tolkien')
 
-botao_cadastrar_livro = ctk.CTkButton(formulario_livro, text="Enviar", command=cadastrar_livro)
+botao_cadastrar_livro = ctk.CTkButton(formulario_livro, text="Enviar", command=cadastrar_livro, corner_radius=20)
 botao_cadastrar_livro.grid(row=4, column=1, sticky="e", padx=5, pady=5)
+
 
 janela.mainloop()
