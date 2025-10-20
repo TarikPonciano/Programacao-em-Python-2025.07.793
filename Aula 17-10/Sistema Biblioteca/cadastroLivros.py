@@ -3,7 +3,7 @@ import dotenv
 import os
 
 import customtkinter as ctk
-import tkinter
+
 from tkinter import ttk, messagebox
 
 dotenv.load_dotenv(dotenv.find_dotenv())
@@ -12,10 +12,62 @@ DB_NAME = os.getenv("DB_NAME")
 DB_USER = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_HOST = os.getenv("DB_HOST")
-DB_PORT = os.getenv("DB_NAME")
+DB_PORT = os.getenv("DB_PORT")
 
 def cadastrar_livro():
-    print("Cadastro de livro acionado")
+    titulo = campo_titulo_livro.get().strip()
+    ano = campo_ano_livro.get().strip()
+    autor = lista_autor_livro.get().strip()
+
+    if not titulo:
+        messagebox.showerror("ERRO DE VALIDAÇÃO", "Título é obrigatório!")
+
+        campo_titulo_livro.focus_set()
+        return
+
+    if not ano:
+        messagebox.showerror("ERRO DE VALIDAÇÃO", "Ano é obrigatório!")
+
+        campo_ano_livro.focus_set()
+        return
+    else:
+        try:
+            ano = int(ano)
+        except:
+            messagebox.showerror("ERRO DE VALIDAÇÃO", "Ano precisa ser numérico!")
+            campo_ano_livro.focus_set()
+            return
+        
+        if ano < 1000 or ano > 2025:
+            messagebox.showerror("ERRO DE VALIDAÇÃO", "Ano precisa estar entre 1000 e 2025!")
+            campo_ano_livro.focus_set()
+            return
+
+    if not autor:
+        messagebox.showerror("ERRO DE VALIDAÇÃO", "Autor é obrigatório!")
+
+        lista_autor_livro.focus_set()
+        return
+    
+    autores = {
+        "Tolkien": 1,
+        "George R. Martin": 2,
+        "Machado de Assis": 3
+    }
+    idAutor = autores[autor]
+
+    meuBanco.manipular('''
+INSERT INTO livros
+VALUES (default, %s, %s, %s);
+''', [titulo, ano, idAutor])
+    
+    campo_titulo_livro.delete(0, 'end')
+    campo_ano_livro.delete(0,'end')
+    lista_autor_livro.set('Tolkien')
+
+    messagebox.showinfo("CADASTRADO COM SUCESSO", "LIVRO CADASTRADO COM SUCESSO")
+
+
 
 meuBanco = ConexaoDB(DB_NAME, DB_HOST, DB_PORT, DB_USER, DB_PASSWORD)
 
