@@ -131,14 +131,32 @@ campo_ano_livro.grid(row=2, column=1, sticky="ew", padx=5, pady=5)
 label_autor_livro = ctk.CTkLabel(formulario_livro, text="AUTOR:")
 label_autor_livro.grid(row=3, column=0, sticky="w", padx=5, pady=5)
 
-
-
 lista_autor_livro = ctk.CTkComboBox(formulario_livro, width=300, state="readonly")
 lista_autor_livro.grid(row=3, column=1, sticky="ew", padx=5, pady=5)
 carregar_autores()
 
 botao_cadastrar_livro = ctk.CTkButton(formulario_livro, text="Enviar", command=cadastrar_livro)
 botao_cadastrar_livro.grid(row=4, column=1, sticky="e", padx=5, pady=5)
+
+container_tabela_livros = ctk.CTkFrame(janela)
+container_tabela_livros.pack(fill="both", expand=True, padx=10, pady=(0,10))
+
+colunas = ["ID", "Titulo", "Ano", "Autor"]
+tabela_livros = ttk.Treeview(container_tabela_livros, columns=colunas, show="headings", height=15)
+
+tabela_livros.heading("ID", text="ID Livro")
+tabela_livros.heading("Titulo", text="Título")
+tabela_livros.heading("Autor", text="Autor")
+tabela_livros.heading("Ano", text="Ano")
+
+tabela_livros.column("ID", width=50)
+tabela_livros.column("Titulo", width=300)
+tabela_livros.column("Ano", width=100)
+tabela_livros.column("Autor", width=150)
+
+tabela_livros.insert("", "end", values=[1, 'Memórias Postumas', 1950, 'Machado de Assis'])
+
+tabela_livros.pack(side="left", fill="both", expand=True)
 
 
 janela.mainloop()
