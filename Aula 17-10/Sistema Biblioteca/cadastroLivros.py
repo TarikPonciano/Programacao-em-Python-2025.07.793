@@ -52,12 +52,12 @@ def cadastrar_livro():
     # Trecho de código responsável por determinar ID do Autor
 
     # Percorremos a lista de autores buscando algum autor que tenha o nome idêntico ao autor selecionado. Se encontrar, salvamos o ID e utilizamos em nosso SQL
-    
+
     idAutor = None
-   
-    for a in autores:
-        if a[1] == autor:
-            idAutor = a[0]
+
+    for elemento in autores:
+        if elemento[1] == autor:
+            idAutor = elemento[0]
             break
 
     meuBanco.manipular('''
@@ -83,11 +83,12 @@ def carregar_autores():
     autores = meuBanco.consultar('''
     SELECT * FROM autores ORDER BY id_autor ASC;
 ''', [])
+
     nomesAutores = []
 
     for autor in autores:
         nomesAutores.append(autor[1])
-    
+    print(nomesAutores)
     lista_autor_livro.configure(values=nomesAutores)
     lista_autor_livro.set(nomesAutores[0])
 
@@ -129,6 +130,8 @@ campo_ano_livro.grid(row=2, column=1, sticky="ew", padx=5, pady=5)
 
 label_autor_livro = ctk.CTkLabel(formulario_livro, text="AUTOR:")
 label_autor_livro.grid(row=3, column=0, sticky="w", padx=5, pady=5)
+
+
 
 lista_autor_livro = ctk.CTkComboBox(formulario_livro, width=300, state="readonly")
 lista_autor_livro.grid(row=3, column=1, sticky="ew", padx=5, pady=5)
