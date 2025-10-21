@@ -49,6 +49,9 @@ def cadastrar_livro():
         lista_autor_livro.focus_set()
         return
     
+    # Trecho de código responsável por determinar ID do Autor
+
+    # Percorremos a lista de autores buscando algum autor que tenha o nome idêntico ao autor selecionado. Se encontrar, salvamos o ID e utilizamos em nosso SQL
     
     idAutor = None
    
