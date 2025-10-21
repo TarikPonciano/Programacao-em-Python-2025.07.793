@@ -169,6 +169,8 @@ tabela_livros.column("Autor", width=150)
 
 carregar_livros()
 
+#DESAFIO: Ao cadastrar um livro, exibir o novo livro na tabela
+
 tabela_livros.pack(fill="both", expand=True)
 
 
