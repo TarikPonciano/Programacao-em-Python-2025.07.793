@@ -49,12 +49,13 @@ def cadastrar_livro():
         lista_autor_livro.focus_set()
         return
     
-    autores = {
-        "Tolkien": 1,
-        "George R. Martin": 2,
-        "Machado de Assis": 3
-    }
-    idAutor = autores[autor]
+    
+    idAutor = None
+   
+    for a in autores:
+        if a[1] == autor:
+            idAutor = a[0]
+            break
 
     meuBanco.manipular('''
 INSERT INTO livros
@@ -68,7 +69,28 @@ VALUES (default, %s, %s, %s);
     messagebox.showinfo("CADASTRADO COM SUCESSO", "LIVRO CADASTRADO COM SUCESSO")
 
 
+def carregar_autores():
+    '''
+    1. Obter do banco a lista de autores -> [(id, nome)]
+    2. Transformar a lista de autores em uma lista de nomes -> ["nome1", "nome2", "nome3"]
+    3. Carregar a lista no elemento "lista_autor_livro"
+    4. Selecionar o primeiro autor da lista como elemento padrão
+    '''
+    global autores
+    autores = meuBanco.consultar('''
+    SELECT * FROM autores ORDER BY id_autor ASC;
+''', [])
+    nomesAutores = []
 
+    for autor in autores:
+        nomesAutores.append(autor[1])
+    
+    lista_autor_livro.configure(values=nomesAutores)
+    lista_autor_livro.set(nomesAutores[0])
+
+
+
+autores = []
 meuBanco = ConexaoDB(DB_NAME, DB_HOST, DB_PORT, DB_USER, DB_PASSWORD)
 
 ctk.set_appearance_mode("dark")
@@ -107,8 +129,7 @@ label_autor_livro.grid(row=3, column=0, sticky="w", padx=5, pady=5)
 
 lista_autor_livro = ctk.CTkComboBox(formulario_livro, width=300, state="readonly")
 lista_autor_livro.grid(row=3, column=1, sticky="ew", padx=5, pady=5)
-lista_autor_livro.configure(values=["Tolkien", "Machado de Assis", "George R. Martin"])
-lista_autor_livro.set('Tolkien')
+carregar_autores()
 
 botao_cadastrar_livro = ctk.CTkButton(formulario_livro, text="Enviar", command=cadastrar_livro)
 botao_cadastrar_livro.grid(row=4, column=1, sticky="e", padx=5, pady=5)
