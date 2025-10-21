@@ -92,6 +92,19 @@ def carregar_autores():
     lista_autor_livro.configure(values=nomesAutores)
     lista_autor_livro.set(nomesAutores[0])
 
+def carregar_livros():
+    '''
+    1. Consultar o banco para obter a lista de livros
+    2. Para cada livro na lista de livros, inserir o livro na tabela
+    '''
+    livros = meuBanco.consultar('''
+SELECT id_livro, titulo_livro, ano_livro, nome_autor FROM livros 
+INNER JOIN autores ON id_autor = autor_id     
+ORDER BY id_livro ASC;
+''', []) 
+    
+    for livro in livros:
+        tabela_livros.insert("", "end", values=livro)
 
 
 autores = []
@@ -154,9 +167,9 @@ tabela_livros.column("Titulo", width=300)
 tabela_livros.column("Ano", width=100)
 tabela_livros.column("Autor", width=150)
 
-tabela_livros.insert("", "end", values=[1, 'Memórias Postumas', 1950, 'Machado de Assis'])
+carregar_livros()
 
-tabela_livros.pack(side="left", fill="both", expand=True)
+tabela_livros.pack(fill="both", expand=True)
 
 
 janela.mainloop()
