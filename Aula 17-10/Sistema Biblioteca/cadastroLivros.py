@@ -71,6 +71,7 @@ VALUES (default, %s, %s, %s);
 
     messagebox.showinfo("CADASTRADO COM SUCESSO", "LIVRO CADASTRADO COM SUCESSO")
 
+    carregar_livros()
 
 def carregar_autores():
     '''
@@ -93,6 +94,10 @@ def carregar_autores():
     lista_autor_livro.set(nomesAutores[0])
 
 def carregar_livros():
+    # Antes de inserir os livros do banco, é necessário limpar nossa tabela.
+    for linha in tabela_livros.get_children():
+        tabela_livros.delete(linha)
+
     '''
     1. Consultar o banco para obter a lista de livros
     2. Para cada livro na lista de livros, inserir o livro na tabela
