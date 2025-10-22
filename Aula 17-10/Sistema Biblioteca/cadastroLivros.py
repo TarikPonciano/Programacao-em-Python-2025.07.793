@@ -111,6 +111,38 @@ ORDER BY id_livro ASC;
     for livro in livros:
         tabela_livros.insert("", "end", values=livro)
 
+def remover_livro():
+    '''
+    1. Obter qual linha está selecionada
+        1.1 Se não houver linha selecionada, exibir mensagem de erro
+    2. Extrair informação da linha (id livro)
+    3. Manipular o banco com um sql DELETE
+    4. Exibir mensagem de confirmação
+    '''
+
+    linhas_selecionadas = tabela_livros.selection()
+
+    if not linhas_selecionadas:
+        messagebox.showerror("ERRO DE SELEÇÃO", "VOCÊ DEVE SELECIONAR UM LIVRO ANTES DE CONTINUAR!")
+        return
+
+    print(linhas_selecionadas)
+
+    livro_selecionado = tabela_livros.item(linhas_selecionadas[0], 'values')
+    print(livro_selecionado)
+    id_livro = int(livro_selecionado[0])
+
+    resultado = meuBanco.manipular('''
+DELETE FROM livros
+WHERE id_livro = %s;
+''', [id_livro])
+    
+    if resultado == "DEU CERTO!":
+        messagebox.showinfo("REMOÇÃO CONCLUÍDA", "LIVRO REMOVIDO COM SUCESSO!")
+    else:
+        messagebox.showerror("REMOÇÃO ABORTADA", "HOUVE UM ERRO AO REMOVER O LIVRO!")
+    
+    carregar_livros()
 
 autores = []
 meuBanco = ConexaoDB(DB_NAME, DB_HOST, DB_PORT, DB_USER, DB_PASSWORD)
@@ -177,6 +209,15 @@ carregar_livros()
 #DESAFIO: Ao cadastrar um livro, exibir o novo livro na tabela
 
 tabela_livros.pack(fill="both", expand=True)
+
+container_botoes = ctk.CTkFrame(janela)
+container_botoes.pack(fill='x', padx=10, pady=(0,5))
+
+container_botoes.columnconfigure(0,weight=1)
+
+botao_deletar = ctk.CTkButton(container_botoes, text="🗑️ REMOVER")
+botao_deletar.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
+botao_deletar.configure(command=remover_livro)
 
 
 janela.mainloop()
