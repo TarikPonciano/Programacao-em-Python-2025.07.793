@@ -126,7 +126,7 @@ def remover_livro():
         messagebox.showerror("ERRO DE SELEÇÃO", "VOCÊ DEVE SELECIONAR UM LIVRO ANTES DE CONTINUAR!")
         return
 
-    print(linhas_selecionadas)
+    # print(linhas_selecionadas)
 
     livro_selecionado = tabela_livros.item(linhas_selecionadas[0], 'values')
     print(livro_selecionado)
@@ -144,6 +144,28 @@ WHERE id_livro = %s;
     
     carregar_livros()
 
+def limpar_formulario():
+    campo_titulo_livro.delete(0, "end")
+    campo_ano_livro.delete(0, "end")
+    lista_autor_livro.set(autores[0][1])
+
+    campo_titulo_livro.focus_set()
+
+    livros_selecionados = tabela_livros.selection()
+
+    for livro in livros_selecionados:
+        tabela_livros.selection_remove(livro)
+def ativar_modo_atualizar():
+    pass
+    '''
+    0. Obter o livro selecionado pelo usuário
+    1. Mudar o título do formulário para "Atualizar Livro"
+        1.1 Incluir no título o id do livro a ser atualizado
+    2. Preencher o campo título com o titulo do livro selecionado
+    3. Preencher o campo ano de lançamento com a informação do livro selecionado
+    4. Preencher o campo autor com o autor do livro selecionado
+    5. Reconfigurar o botão de enviar, para executar a função de atualizar
+    '''
 autores = []
 meuBanco = ConexaoDB(DB_NAME, DB_HOST, DB_PORT, DB_USER, DB_PASSWORD)
 
@@ -151,8 +173,12 @@ ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
 
 janela = ctk.CTk()
+
+posx = (janela.winfo_screenwidth()/2) - (600/2)
+
 janela.title("Cadastro de Livros")
-janela.geometry("600x900")
+
+janela.geometry(f"600x900+{int(posx)}+0")
 janela.resizable(width=False, height=False)
 
 formulario_livro = ctk.CTkFrame(janela)
@@ -214,10 +240,23 @@ container_botoes = ctk.CTkFrame(janela)
 container_botoes.pack(fill='x', padx=10, pady=(0,5))
 
 container_botoes.columnconfigure(0,weight=1)
+container_botoes.columnconfigure(1,weight=1)
+container_botoes.columnconfigure(2,weight=1)
+container_botoes.columnconfigure(3,weight=1)
+
+botao_cadastrar = ctk.CTkButton(container_botoes, text="✔️ CADASTRAR")
+botao_cadastrar.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
+
+botao_atualizar = ctk.CTkButton(container_botoes, text = "🚩 ATUALIZAR")
+botao_atualizar.grid(row=0, column=1, sticky="ew", padx=5, pady=5)
+botao_atualizar.configure(command=ativar_modo_atualizar)
 
 botao_deletar = ctk.CTkButton(container_botoes, text="🗑️ REMOVER")
-botao_deletar.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
+botao_deletar.grid(row=0, column=2, sticky="ew", padx=5, pady=5)
 botao_deletar.configure(command=remover_livro)
 
+botao_limpar = ctk.CTkButton(container_botoes, text= "🧹 LIMPAR")
+botao_limpar.grid(row=0, column=3, sticky="ew", padx=5, pady=5)
+botao_limpar.configure(command=limpar_formulario)
 
 janela.mainloop()
