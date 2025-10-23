@@ -245,6 +245,15 @@ def ativar_modo_atualizar():
 
     botao_cadastrar_livro.configure(command=lambda: atualizar_livro(livro_selecionado[0]))
 
+def ativar_modo_cadastrar():
+
+    pass
+
+    '''1. Limpar formulário
+       2. Alterar o título do formulário para "CADASTRAR LIVRO"
+       3. Alterar a função do botão enviar para a função cadastrar_livro
+       '''
+
 
 
 
@@ -329,6 +338,7 @@ container_botoes.columnconfigure(3,weight=1)
 
 botao_cadastrar = ctk.CTkButton(container_botoes, text="✔️ CADASTRAR")
 botao_cadastrar.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
+botao_cadastrar.configure(command=ativar_modo_cadastrar)
 
 botao_atualizar = ctk.CTkButton(container_botoes, text = "🚩 ATUALIZAR")
 botao_atualizar.grid(row=0, column=1, sticky="ew", padx=5, pady=5)
