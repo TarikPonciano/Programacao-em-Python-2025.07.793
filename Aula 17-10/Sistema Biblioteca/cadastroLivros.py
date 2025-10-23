@@ -73,6 +73,68 @@ VALUES (default, %s, %s, %s);
 
     carregar_livros()
 
+def atualizar_livro(idLivro):
+    titulo = campo_titulo_livro.get().strip()
+    ano = campo_ano_livro.get().strip()
+    autor = lista_autor_livro.get().strip()
+
+    if not titulo:
+        messagebox.showerror("ERRO DE VALIDAÇÃO", "Título é obrigatório!")
+
+        campo_titulo_livro.focus_set()
+        return
+
+    if not ano:
+        messagebox.showerror("ERRO DE VALIDAÇÃO", "Ano é obrigatório!")
+
+        campo_ano_livro.focus_set()
+        return
+    else:
+        try:
+            ano = int(ano)
+        except:
+            messagebox.showerror("ERRO DE VALIDAÇÃO", "Ano precisa ser numérico!")
+            campo_ano_livro.focus_set()
+            return
+        
+        if ano < 1000 or ano > 2025:
+            messagebox.showerror("ERRO DE VALIDAÇÃO", "Ano precisa estar entre 1000 e 2025!")
+            campo_ano_livro.focus_set()
+            return
+
+    if not autor:
+        messagebox.showerror("ERRO DE VALIDAÇÃO", "Autor é obrigatório!")
+
+        lista_autor_livro.focus_set()
+        return
+    
+    # Trecho de código responsável por determinar ID do Autor
+
+    # Percorremos a lista de autores buscando algum autor que tenha o nome idêntico ao autor selecionado. Se encontrar, salvamos o ID e utilizamos em nosso SQL
+
+    idAutor = None
+
+    for elemento in autores:
+        if elemento[1] == autor:
+            idAutor = elemento[0]
+            break
+
+    meuBanco.manipular('''
+UPDATE livros
+SET
+titulo_livro = %s,
+ano_livro = %s,
+autor_id = %s
+WHERE id_livro = %s;
+''', [titulo, ano, idAutor, idLivro])
+    
+    limpar_formulario()
+
+    messagebox.showinfo("ATUALIZADO COM SUCESSO", "LIVRO ATUALIZADO COM SUCESSO")
+
+    carregar_livros()
+
+
 def carregar_autores():
     '''
     1. Obter do banco a lista de autores -> [(id, nome)]
@@ -165,10 +227,29 @@ def ativar_modo_atualizar():
     4. Preencher o campo autor com o autor do livro selecionado
     5. Reconfigurar o botão de enviar, para executar a função de atualizar
     '''
-    formulario_livro_titulo_label.configure(text="ATUALIZAR LIVRO")
-    campo_titulo_livro.insert(0,"Livro")
+
+    livros_selecionado = tabela_livros.selection()
+
+    if not livros_selecionado:
+        messagebox.showerror("ERRO AO ATUALIZAR!", "PARA ATUALIZAR UM LIVRO PRIMEIRO SELECIONE O LIVRO NA LISTA")
+        return
+    
+    livro_selecionado = tabela_livros.item(livros_selecionado[0], "values")
+    
+    limpar_formulario()
+
+    formulario_livro_titulo_label.configure(text=f"ATUALIZANDO LIVRO - #{livro_selecionado[0]}")
+    campo_titulo_livro.insert(0, livro_selecionado[1])
+    campo_ano_livro.insert(0, livro_selecionado[2])
+    lista_autor_livro.set(livro_selecionado[3])
+
+    botao_cadastrar_livro.configure(command=lambda: atualizar_livro(livro_selecionado[0]))
+
+
+
 
 autores = []
+
 meuBanco = ConexaoDB(DB_NAME, DB_HOST, DB_PORT, DB_USER, DB_PASSWORD)
 
 ctk.set_appearance_mode("dark")
@@ -260,5 +341,6 @@ botao_deletar.configure(command=remover_livro)
 botao_limpar = ctk.CTkButton(container_botoes, text= "🧹 LIMPAR")
 botao_limpar.grid(row=0, column=3, sticky="ew", padx=5, pady=5)
 botao_limpar.configure(command=limpar_formulario)
+
 
 janela.mainloop()
