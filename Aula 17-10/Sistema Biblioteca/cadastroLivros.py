@@ -156,7 +156,6 @@ def limpar_formulario():
     for livro in livros_selecionados:
         tabela_livros.selection_remove(livro)
 def ativar_modo_atualizar():
-    pass
     '''
     0. Obter o livro selecionado pelo usuário
     1. Mudar o título do formulário para "Atualizar Livro"
@@ -166,6 +165,9 @@ def ativar_modo_atualizar():
     4. Preencher o campo autor com o autor do livro selecionado
     5. Reconfigurar o botão de enviar, para executar a função de atualizar
     '''
+    formulario_livro_titulo_label.configure(text="ATUALIZAR LIVRO")
+    campo_titulo_livro.insert(0,"Livro")
+
 autores = []
 meuBanco = ConexaoDB(DB_NAME, DB_HOST, DB_PORT, DB_USER, DB_PASSWORD)
 
