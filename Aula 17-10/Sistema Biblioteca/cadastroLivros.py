@@ -247,12 +247,14 @@ def ativar_modo_atualizar():
 
 def ativar_modo_cadastrar():
 
-    pass
-
     '''1. Limpar formulário
        2. Alterar o título do formulário para "CADASTRAR LIVRO"
        3. Alterar a função do botão enviar para a função cadastrar_livro
        '''
+    
+    limpar_formulario()
+    formulario_livro_titulo_label.configure(text="CADASTRAR LIVRO")
+    botao_cadastrar_livro.configure(command=cadastrar_livro)
 
 
 
@@ -278,7 +280,6 @@ formulario_livro.pack(fill="x", padx = 10, pady = 10)
 
 formulario_livro.columnconfigure(0, weight=0, minsize=120)
 formulario_livro.columnconfigure(1, weight=1)
-
 
 formulario_livro_titulo_label = ctk.CTkLabel(formulario_livro, text="CADASTRAR LIVRO", font=ctk.CTkFont(size=24, weight="bold"))
 formulario_livro_titulo_label.grid(row=0, column=0, columnspan=2, pady=(0,10))
