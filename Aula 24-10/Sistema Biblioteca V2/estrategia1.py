@@ -15,7 +15,7 @@ def renderizar_tela_menu():
     titulo_menu.pack(fill="x")
 
     faixa_botoes = ctk.CTkFrame(tela_menu)
-    faixa_botoes.pack(fill="both",expand=True, padx=400, pady=100)
+    faixa_botoes.pack(fill="both",expand=True, padx=100, pady=100)
 
     faixa_botoes.columnconfigure(0, weight=1)
     faixa_botoes.rowconfigure(0, weight=2)
@@ -74,8 +74,17 @@ janela.title("Sistema de Biblioteca V2")
 janela.geometry("1024x728")
 janela.resizable(width=False, height=False)
 
+janela.rowconfigure(0,weight=1)
+janela.columnconfigure(0, weight=0, minsize=200)
+janela.columnconfigure(1, weight=3)
+
+menu_lateral = ctk.CTkFrame(janela)
+menu_lateral.grid(row=0, column=0, sticky="nsew")
+
+
+
 container_conteudo = ctk.CTkFrame(janela)
-container_conteudo.pack(fill="both", expand=True)
+container_conteudo.grid(row=0, column= 1, sticky="nsew")
 
 tela_atual = None
 
