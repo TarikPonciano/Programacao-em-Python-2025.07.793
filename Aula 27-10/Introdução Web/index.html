@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Primeiro HTML</title>
+    <!-- <style>
+        label {
+            color: blue;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        input {
+            width: 50vw;
+        }
+
+        .input-teste {
+            border: 5px solid cyan;
+            color:red;
+        }
+
+        #campo-nome {
+            background-color: yellow;
+        }
+
+        input[type="text"]{
+            color: violet;
+        }
+
+        button[type="submit"]{
+            background-color: blue;
+            color: white;
+            border-radius: 6px;
+        }
+    </style> -->
+
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- <h1>Olá Mundo</h1>
+    <h2>Olá Mundo</h2>
+    <h3>Olá Mundo</h3>
+
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis molestiae incidunt perspiciatis possimus eaque
+        eveniet, quibusdam impedit quidem similique unde odit accusantium ab dolores minus. Nam voluptate exercitationem
+        repellat laboriosam.</p>
+
+    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi corporis ab, ea officiis inventore voluptatibus
+        aliquam dolores reprehenderit esse debitis ratione architecto omnis dolorum velit, ex minus eius veniam
+        dolorem!</span>
+
+    <s>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Unde natus aperiam asperiores eius dolore error
+        eligendi perspiciatis, vero delectus praesentium, quaerat facere facilis repudiandae libero expedita illum ex,
+        veritatis cupiditate.</s>
+
+    <ol>
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+    </ol>
+
+    <ul>
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+    </ul>
+
+    <a href="http://google.com" target="_blank">Clique Aqui</a>
+
+    <img src="Captura de tela 2025-04-12 110748.png"
+        alt="Professor Ysmael"> -->
+
+    <!-- <button type="button" onclick="alert('Fui clicado!')">Clique Aqui</button>
+
+    <input type="date" min="2025-10-27">
+
+    <form>
+        <label>Nome:</label>
+        <input type="text">
+        <br>
+        <br>
+        <label>Idade:</label>
+        <input type="number">
+    </form> --> 
+    <!-- Criar uma página com o título (h1) "Cadastro de Funcionários". Criar um formulário contendo os seguintes campos:
+    Nome
+    CPF
+    Email
+    Cargo 
+    
+    Criar um documento de estilização style.css:
+
+    Aplicar uma estilização na tag h1. Mude o tamanho da fonte (font-size), a cor da fonte (color) e adicione uma cor de fundo (background-color).
+
+    Aplicar estilização na tag Label. Mude a cor da fonte e a margem direita (margin-right). Deixe ela mais distante dos campos de escrita
+
+    Aplicar estilização na tag input. Mude a cor de fundo dos campos, determine a largura(width) para 200px e altura(height) para 50px
+
+    Aplicar estilização na tag button. Mude a cor de fundo, adicione bordas arredondadas(border-radius) e mude a cor da borda para branco border-color.
+    -->
+
+    <h1 style="color: red;">Cadastro de Funcionários</h1>
+    <h1>Formulário da Empresa XYZ</h1>
+
+    <form onsubmit="alert('Formulário Enviado!')">
+
+        <label for="campo-nome">Nome:</label>
+        <input class = "input-teste" type="text" name="nome" id="campo-nome">
+
+        <br>
+
+        <label for="campo-cpf">CPF:</label>
+        <input type="text" name="cpf" id="campo-cpf" required>
+
+        <br>
+
+        <label for="campo-email">Email:</label>
+        <input class="input-teste" type="email" name="email" id="campo-email" required>
+
+        <br>
+
+        <label for="campo-cargo">Cargo:</label>
+        <select class="input-teste" name="cargo" id="campo-cargo">
+            <option value="Gerente">Gerente</option>
+            <option value="Analista">Analista</option>
+            <option value="Vendedor">Vendedor</option>
+        </select>
+
+        <br>
+
+        <button type="submit">Enviar</button>
+        <button type="reset">Limpar</button>
+        
+    </form>
+
+
+
+
+</body>
+
+</html>
+
+
+

@@ -1,0 +1,32 @@
+label {
+    color: blue;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+input {
+    width: 50vw;
+}
+
+.input-teste {
+    border: 5px solid cyan;
+    color: red;
+}
+
+#campo-nome {
+    background-color: yellow;
+}
+
+input[type="text"] {
+    color: violet;
+}
+
+button[type="submit"] {
+    background-color: blue;
+    color: white;
+    border-radius: 6px;
+    transition: ease-in background-color 0.5s;
+}
+
+button:hover{
+    background-color: blueviolet;
+}
