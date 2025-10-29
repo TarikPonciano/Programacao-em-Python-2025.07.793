@@ -11,3 +11,7 @@ def hello_world(request):
     ''')
 
 # Crie a rota raiz '' nessa rota raiz execute uma função que exibe na tela "Bem vindo ao meu primeiro projeto Django!"
+
+def home(request):
+
+    return HttpResponse("<h1>Seja Bem Vindo ao Meu Primeiro Projeto Django!</h1>")
