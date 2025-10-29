@@ -14,4 +14,4 @@ def hello_world(request):
 
 def home(request):
 
-    return HttpResponse("<h1>Seja Bem Vindo ao Meu Primeiro Projeto Django!</h1>")
+    return render(request, "funcionarios/home.html")
