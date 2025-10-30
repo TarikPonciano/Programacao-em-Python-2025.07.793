@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse, HttpResponse
 
 def hello_world(request):
@@ -15,4 +15,19 @@ def home(request):
     return render(request, "funcionarios/home.html")
 
 def cadastro_funcionario(request):
-    return render(request, "funcionarios/cadastro.html")
+    if request.method == "GET":
+        return render(request, "funcionarios/cadastro.html")
+    elif request.method == "POST":
+
+        nome = request.POST.get("nome", '')
+        cargo = request.POST.get("cargo", '')
+        departamento = request.POST.get("departamento", '')
+        salario = request.POST.get("salario",'')
+
+        print(f'''Funcionário Cadastrado
+            Nome: {nome}
+            Cargo: {cargo}
+            Departamento: {departamento}
+            Salário: R$ {salario}''')
+        return redirect("cadastro")
+    

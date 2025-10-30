@@ -11,6 +11,8 @@
     <h1>Cadastro de Funcionário</h1>
 
     <form action="{% url 'cadastro' %}" method="post">
+        {% csrf_token %}
+        
         <label>Nome:</label>
         <input type="text" name="nome">
         <br>
