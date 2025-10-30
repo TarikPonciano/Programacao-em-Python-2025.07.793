@@ -4,7 +4,6 @@ from django.http import JsonResponse, HttpResponse
 def hello_world(request):
     soma = 30+30
 
-
     return HttpResponse(f'''
     <h1 style="color:red">Hello World - {soma}</h1>
     <button onclick="alert('Teste')">Clique aqui</button>
@@ -13,5 +12,7 @@ def hello_world(request):
 # Crie a rota raiz '' nessa rota raiz execute uma função que exibe na tela "Bem vindo ao meu primeiro projeto Django!"
 
 def home(request):
-
     return render(request, "funcionarios/home.html")
+
+def cadastro_funcionario(request):
+    return render(request, "funcionarios/cadastro.html")
