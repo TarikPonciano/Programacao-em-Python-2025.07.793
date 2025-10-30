@@ -29,5 +29,8 @@ def cadastro_funcionario(request):
             Cargo: {cargo}
             Departamento: {departamento}
             Salário: R$ {salario}''')
+        
         return redirect("cadastro")
+        
+        
     

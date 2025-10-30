@@ -1,0 +1,11 @@
+- No arquivo cadastro.html:
+	1. Criar um form (incluir o token)
+	2. Configura o atributo action, definir a função que será ativada -> action="{% url 'cadastro'%}"
+	3. Configurar o método para POST -> method="POST"
+	4. Atribuir um name para cada campo do usuário
+- No arquivo views.py
+	1. Criar uma checagem para verificar se o método é GET e uma checagem para verificar se o método é POST
+	2. No método get você deve renderizar a página original
+	3. No método post você deve receber as informações do request e exibir no terminal
+	4. Ao final do método post usar o comando redirect para mandar de voltar ao cadastro original
+	
