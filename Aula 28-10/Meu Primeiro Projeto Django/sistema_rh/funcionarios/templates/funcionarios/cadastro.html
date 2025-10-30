@@ -1,16 +1,39 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Funcionário</title>
 </head>
+
 <body>
     <h1>Cadastro de Funcionário</h1>
 
-    <form>
+    <form action="{% url 'cadastro' %}" method="post">
         <label>Nome:</label>
-        <input type="text">
+        <input type="text" name="nome">
+        <br>
+
+        <label>Cargo:</label>
+        <input type="text" name="cargo">
+        <br>
+
+        <label>Departamento:</label>
+        <select name="departamento">
+            <option value="RH">RH</option>
+            <option value="Financeiro">Financeiro</option>
+            <option value="TI">TI</option>
+        </select>
+        <br>
+
+        <label>Salário:</label>
+        <input type="number" name="salario">
+        <br>
+
+        <button type="submit">Enviar</button>
+        <button type="reset">Limpar</button>
     </form>
 </body>
+
 </html>
