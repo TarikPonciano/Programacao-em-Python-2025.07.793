@@ -1,6 +1,12 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse, HttpResponse
 
+funcionarios = [
+    {"nome": "Jefferson", "cargo": "Vendedor", "departamento": "RH", "salario": 5500}
+]
+
+
+
 def hello_world(request):
     soma = 30+30
 
@@ -22,13 +28,19 @@ def cadastro_funcionario(request):
         nome = request.POST.get("nome", '')
         cargo = request.POST.get("cargo", '')
         departamento = request.POST.get("departamento", '')
-        salario = request.POST.get("salario",'')
+        salario = float(request.POST.get("salario", 0))
 
-        print(f'''Funcionário Cadastrado
-            Nome: {nome}
-            Cargo: {cargo}
-            Departamento: {departamento}
-            Salário: R$ {salario}''')
+        novoFuncionario = {
+            "nome": nome,
+            "cargo": cargo,
+            "departamento": departamento,
+            "salario": salario
+        }
+
+        funcionarios.append(novoFuncionario)
+
+        print(funcionarios)
+        
         
         return redirect("cadastro")
         
