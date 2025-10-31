@@ -44,5 +44,11 @@ def cadastro_funcionario(request):
         
         return redirect("cadastro")
         
-        
+def ver_funcionarios(request):
+    context = {
+        "funcionarios": funcionarios,
+        "saudacao": "Seja Bem Vindo!"
+    }
+    return render(request, "funcionarios/funcionarios.html", context)
+    
     
