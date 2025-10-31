@@ -9,10 +9,12 @@
 
 <body>
     <h1>Ver Funcionários</h1>
-
-    <h1>{{saudacao}}</h1>
-
-    {{funcionarios}}
+    
+    <ul>
+        {% for func in funcionarios %}
+        <li>Nome: {{func.nome}} | Cargo: {{func.cargo}} | Departamento: {{func.departamento}} | Salário: R$ {{func.salario}} </li>
+        {% endfor %}
+    </ul>
     
 </body>
 
