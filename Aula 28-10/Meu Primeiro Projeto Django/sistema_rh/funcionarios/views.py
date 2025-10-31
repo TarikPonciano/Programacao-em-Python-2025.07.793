@@ -2,9 +2,10 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse, HttpResponse
 
 funcionarios = [
-    {"nome": "Jefferson", "cargo": "Vendedor", "departamento": "RH", "salario": 5500}
+    {"id": 1, "nome": "Jefferson", "cargo": "Vendedor", "departamento": "RH", "salario": 5500}
 ]
 
+idAtual = 1
 
 
 def hello_world(request):
@@ -29,8 +30,9 @@ def cadastro_funcionario(request):
         cargo = request.POST.get("cargo", '')
         departamento = request.POST.get("departamento", '')
         salario = float(request.POST.get("salario", 0))
-
+        global idAtual
         novoFuncionario = {
+            "id": idAtual+1,
             "nome": nome,
             "cargo": cargo,
             "departamento": departamento,
@@ -38,6 +40,7 @@ def cadastro_funcionario(request):
         }
 
         funcionarios.append(novoFuncionario)
+        idAtual += 1
 
         print(funcionarios)
         
@@ -50,4 +53,19 @@ def ver_funcionarios(request):
     }
     return render(request, "funcionarios/funcionarios.html", context)
     
+def ver_detalhes_funcionario(request, id):
+    funcionario_escolhido = None
+
+    for func in funcionarios:
+        if func['id'] == id:
+            funcionario_escolhido = func
+            break
+
+    if funcionario_escolhido == None:
+        return HttpResponse("FUNCIONÁRIO NÃO ENCONTRADO")
     
+    context={
+        "funcionario": funcionario_escolhido
+    }
+
+    return render(request, "funcionarios/funcionario.html", context)

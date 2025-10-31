@@ -9,10 +9,10 @@
 
 <body>
     <h1>Ver Funcionários</h1>
-    
+
     <ul>
         {% for func in funcionarios %}
-        <li>Nome: {{func.nome}} | Cargo: {{func.cargo}} | Departamento: {{func.departamento}} | Salário: R$ {{func.salario}} </li>
+        <li>Nome: {{func.nome}} <a href="{% url 'detalhes_funcionario' func.id %}">Ver Detalhes</a></li>
         {% endfor %}
     </ul>
     
