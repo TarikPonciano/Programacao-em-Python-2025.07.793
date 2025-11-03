@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse, HttpResponse
 
 funcionarios = [
-    {"id": 1, "nome": "Jefferson", "cargo": "Vendedor", "departamento": "RH", "salario": 5500}
+    {"id": 1, "nome": "Jefferson", "cargo": "Vendedor", "departamento": "Financeiro", "salario": 5500}
 ]
 
 idAtual = 1
@@ -51,7 +51,7 @@ def ver_funcionarios(request):
     context = {
         "funcionarios": funcionarios
     }
-    return render(request, "funcionarios/funcionarios.html", context)
+    return render(request, "funcionarios/funcionarios.html",context)
     
 def ver_detalhes_funcionario(request, id):
     funcionario_escolhido = None
@@ -69,3 +69,22 @@ def ver_detalhes_funcionario(request, id):
     }
 
     return render(request, "funcionarios/funcionario.html", context)
+
+def atualizar_funcionario(request, id):
+
+    posicao_funcionario = None
+
+    for func in funcionarios:
+        if func["id"] == id:
+            posicao_funcionario = funcionarios.index(func)
+            break
+    
+    if posicao_funcionario == None:
+        return HttpResponse("Não foi possível Atualizar Funcionario! ID inválido!")
+    
+    funcionarios[posicao_funcionario]["nome"] = request.POST.get('nome', '')
+    funcionarios[posicao_funcionario]["cargo"] = request.POST.get('cargo', '')
+    funcionarios[posicao_funcionario]["departamento"] = request.POST.get('departamento', '')
+    funcionarios[posicao_funcionario]["salario"] = request.POST.get('salario', '')
+
+    return redirect('lista_funcionarios')
