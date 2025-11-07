@@ -1,0 +1,49 @@
+{%load static%}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário Novo Paciente</title>
+    <link rel="stylesheet" href="{% static 'paciente/css/style.css'%}">
+</head>
+
+<body>
+    <h1>Cadastro de Pacientes</h1>
+
+
+    <div class="card-formulario">
+
+        <form action="{%url 'cadastro'%}" method="post">
+            {% csrf_token %}
+
+            <div class="campo-formulario">
+                <label for="campo-nome">Nome do Paciente:</label>
+                <input type="text" name="nome" id="campo-nome">
+            </div>
+
+            <div class="campo-formulario">
+                <label for="campo-especie">Espécie</label>
+                <input type="text" id="campo-especie" name="especie">
+            </div>
+
+            <div class="campo-formulario">
+                <label for="campo-cor">Cor:</label>
+                <input type="color" id="campo-cor" name="cor">
+            </div>
+
+
+            <button type="submit">Enviar</button>
+            <button type="reset">Limpar</button>
+        </form>
+
+
+    </div>
+
+
+
+</body>
+
+</html>
