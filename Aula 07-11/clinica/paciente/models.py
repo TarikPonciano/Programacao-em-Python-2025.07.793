@@ -17,3 +17,6 @@ class Paciente(models.Model):
     especie = models.CharField(max_length=255, null=False, default="Indefinido", choices=listaEspecies)
 
     cor = models.CharField(max_length=255, null=False)
+
+    def __str__(self):
+        return f"Nome: {self.nome} - Especie: {self.especie} <br>"

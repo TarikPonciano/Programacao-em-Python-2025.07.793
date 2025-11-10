@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from .models import Paciente
@@ -27,6 +27,13 @@ def cadastrar_paciente(request):
            cor=corPaciente
        )
 
-       pacientes = Paciente.objects.all()
+       return redirect('cadastro')
+    
+def listar_pacientes(request):
+    pacientes = Paciente.objects.all()
 
-       return HttpResponse(pacientes)
+    context = {
+        "pacientes": pacientes
+    }
+
+    return render(request, "paciente/lista_pacientes.html", context)

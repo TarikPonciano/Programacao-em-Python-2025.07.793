@@ -1,0 +1,20 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{%static 'paciente/css/style.css'%}">
+</head>
+<body>
+    <h1> Lista de Pacientes </h1>
+    <div class="card-formulario">
+        <ul>
+            {% for paciente in pacientes %}
+            <li>ID: {{paciente.id}} Nome: {{paciente.nome}} Espécie: {{paciente.especie}}</li>
+            {%endfor%}
+        </ul>
+    </div>
+</body>
+</html>
