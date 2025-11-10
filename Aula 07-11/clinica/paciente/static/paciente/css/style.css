@@ -22,6 +22,11 @@ h1 {
     font-weight: 600;
 }
 
+.btn-success{
+    background-color: #5848e4;
+    padding: 20px
+}
+
 /* Card do formulário */
 .card-formulario {
     background: #ffffff;
@@ -97,6 +102,7 @@ button[type="reset"] {
 button[type="reset"]:hover {
     background: #d32f2f;
 }
+
 
 /* Responsividade */
 @media (max-width: 500px) {

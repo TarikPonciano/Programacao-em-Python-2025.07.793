@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 
+from .models import Paciente
+
 # Create your views here.
 def home(request):
     return render(request, "paciente/home.html")
@@ -13,10 +15,18 @@ def cadastrar_paciente(request):
     
     if request.method == "POST":
 
+       nomePaciente = request.POST.get("nome")
+       
+       especiePaciente = request.POST.get("especie")
 
-        return HttpResponse(f'''
-                            CADASTRO COM SUCESSO
-Nome: {request.POST.get('nome')}
-Especie: {request.POST.get('especie')}
-Cor: {request.POST.get('cor')}
-''')
+       corPaciente = request.POST.get("cor")
+
+       Paciente.objects.create(
+           nome=nomePaciente,
+           especie=especiePaciente,
+           cor=corPaciente
+       )
+
+       pacientes = Paciente.objects.all()
+
+       return HttpResponse(pacientes)
