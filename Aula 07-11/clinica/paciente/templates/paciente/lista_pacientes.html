@@ -4,15 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Lista Pacientes</title>
+    {% load django_bootstrap5%}
+    {%bootstrap_css%}
+    {%bootstrap_javascript%}
     <link rel="stylesheet" href="{%static 'paciente/css/style.css'%}">
 </head>
 <body>
     <h1> Lista de Pacientes </h1>
     <div class="card-formulario">
+
         <ul>
             {% for paciente in pacientes %}
-            <li>ID: {{paciente.id}} Nome: {{paciente.nome}} Espécie: {{paciente.especie}}</li>
+            <li>ID: {{paciente.id}} Nome: {{paciente.nome}} Espécie: {{paciente.especie}} <a class="btn btn-success" href="{% url 'ver_paciente' paciente.id %}">Ver</a></li>
             {%endfor%}
         </ul>
     </div>
