@@ -16,7 +16,8 @@
 
         <ul>
             {% for paciente in pacientes %}
-            <li>ID: {{paciente.id}} Nome: {{paciente.nome}} Espécie: {{paciente.especie}} <a class="btn btn-success" href="{% url 'ver_paciente' paciente.id %}">Ver</a></li>
+            <li>ID: {{paciente.id}} Nome: {{paciente.nome}} Espécie: {{paciente.especie}} 
+                <a class="btn btn-success" href="{% url 'ver_paciente' paciente.id %}">Ver</a></li>
             {%endfor%}
         </ul>
     </div>
